@@ -529,6 +529,25 @@ class TestDNAmapping():
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
         assert parseSpOut(_p) == 134
+    def test_allelic_2strains(self,ifs):
+        ci = [
+            "DNAmapping",
+            '-i',
+            ifs / 'PE',
+            '-o',
+            ifs / 'outdir',
+            '--VCFfile',
+            ifs / 'allelic_input' / 'file.vcf.gz',
+            '--strains',
+            'strain1,strain2',
+            '--snakemakeOptions',
+            SMKOPTS,
+            ifs / 'org.yaml',
+        ]
+        print(' '.join([str(i) for i in ci]))
+        _p = sp.run(ci, capture_output=True, text=True)
+        assert _p.returncode == 0
+        assert parseSpOut(_p) == 143
 
 class TestChIPseq:
     def test_default(self, ifs):
@@ -1177,7 +1196,7 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 167
+        assert parseSpOut(_p) == 176
     def test_DE(self, ifs):
         ci = [
             "mRNAseq",
@@ -1194,7 +1213,7 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 168
+        assert parseSpOut(_p) == 177
     def test_rMats(self, ifs):
         ci = [
             "mRNAseq",
@@ -1212,7 +1231,7 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 170
+        assert parseSpOut(_p) == 179
     def test_almode(self, ifs):
         ci = [
             "mRNAseq",
@@ -1231,7 +1250,7 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 125
+        assert parseSpOut(_p) == 134
     def test_trim(self, ifs):
         ci = [
             "mRNAseq",
@@ -1249,7 +1268,7 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 177
+        assert parseSpOut(_p) == 186
     def test_alfreemode(self, ifs):
         ci = [
             "mRNAseq",
@@ -1268,7 +1287,7 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 188
+        assert parseSpOut(_p) == 197
     def test_bcExtract(self, ifs):
         ci = [
             "mRNAseq",
@@ -1287,7 +1306,7 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 168
+        assert parseSpOut(_p) == 177
     def test_bcExtractUMIdedup(self, ifs):
         ci = [
             "mRNAseq",
@@ -1307,7 +1326,7 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 177
+        assert parseSpOut(_p) == 186
     def test_multicomp(self, ifs):
         ci = [
             "mRNAseq",
@@ -1327,7 +1346,7 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 165
+        assert parseSpOut(_p) == 174
     def test_SE(self, ifs):
         ci = [
             "mRNAseq",
@@ -1344,7 +1363,7 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 149
+        assert parseSpOut(_p) == 158
     def test_SEalmode(self, ifs):
         ci = [
             "mRNAseq",
@@ -1363,7 +1382,7 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 107
+        assert parseSpOut(_p) == 116
     def test_SEtrim(self, ifs):
         ci = [
             "mRNAseq",
@@ -1381,7 +1400,7 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 158
+        assert parseSpOut(_p) == 167
     def test_SEalfreemode(self, ifs):
         ci = [
             "mRNAseq",
@@ -1400,7 +1419,8 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 169
+        assert parseSpOut(_p) == 178
+
     def test_SEfastqc(self, ifs):
         ci = [
             "mRNAseq",
@@ -1419,7 +1439,7 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 176
+        assert parseSpOut(_p) == 185
     def test_SEfrombam(self, ifs):
         ci = [
             "mRNAseq",
@@ -1496,7 +1516,8 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 253
+        assert parseSpOut(_p) == 262
+
     def test_allelicfrombam(self, ifs):
         ci = [
             "mRNAseq",
@@ -1541,7 +1562,7 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 254
+        assert parseSpOut(_p) == 263
     def test_allelicDE_SNPfile(self, ifs):
         ci = [
             "mRNAseq",
@@ -1564,7 +1585,7 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 252
+        assert parseSpOut(_p) == 261
     def test_allelicDEsinglestrain(self, ifs):
         ci = [
             "mRNAseq",
@@ -1587,7 +1608,7 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 254
+        assert parseSpOut(_p) == 263
     def test_allelicDEalfree(self, ifs):
         ci = [
             "mRNAseq",
@@ -1610,7 +1631,7 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 330
+        assert parseSpOut(_p) == 339
     def test_allelic_count_fromBam_singlecomp(self, ifs):
         ci = [
             "mRNAseq",
@@ -1703,7 +1724,7 @@ class TestmRNAseq:
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 331
+        assert parseSpOut(_p) == 340
 
 class TestncRNAseq():
     def test_default(self, ifs):
@@ -1952,7 +1973,7 @@ class TestWGBS():
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 110
+        assert parseSpOut(_p) == 92
     def test_frombamfqc(self, ifs):
         ci = [
             "WGBS",
@@ -1972,7 +1993,7 @@ class TestWGBS():
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 110
+        assert parseSpOut(_p) == 92
     def test_frombamskipqc(self, ifs):
         ci = [
             "WGBS",

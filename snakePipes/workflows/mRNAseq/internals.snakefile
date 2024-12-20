@@ -29,6 +29,10 @@ if trim:
     elif trimmer == "fastp":
         fastq_dir = "FASTQ_fastp"
 
+#set dedup to false
+dedup = False
+properPairs = False
+mapq = 0
 
 ### Initialization #############################################################
 if not fromBAM:

@@ -24,7 +24,7 @@ if pairedEnd and not fromBAM:
             r1=fastq_dir + "/{sample}" + reads[0] + ".fastq.gz",
             r2=fastq_dir + "/{sample}" + reads[1] + ".fastq.gz"
         output:
-            sbam=temp(aligner+"/{sample}.bam")
+            sbam=temp(aligner+"/{sample}.sorted.bam")
         params:
             bwameth_index=bwameth_index if aligner=="bwameth" else bwameth2_index,
             tempDir = tempDir
@@ -43,7 +43,7 @@ elif not pairedEnd and not fromBAM:
         input:
             r1=fastq_dir + "/{sample}" + reads[0] + ".fastq.gz",
         output:
-            sbam=temp(aligner+"/{sample}.bam")
+            sbam=temp(aligner+"/{sample}.sorted.bam")
         params:
             bwameth_index=bwameth_index if aligner=="bwameth" else bwameth2_index,
             tempDir = tempDir
@@ -57,59 +57,59 @@ elif not pairedEnd and not fromBAM:
             rm -rf "$MYTEMP"
             """
 
-if not fromBAM:
-    rule index_bam:
-        input:
-            aligner+"/{sample}.bam"
-        output:
-            temp(aligner+"/{sample}.bam.bai")
-        conda: CONDA_SHARED_ENV
-        shell: """
-            samtools index "{input}"
-            """
+#if not fromBAM:
+#    rule index_bam:
+#        input:
+#            aligner+"/{sample}.sorted.bam"
+#        output:
+#            temp(aligner+"/{sample}.sorted.bam.bai")
+#        conda: CONDA_SHARED_ENV
+#        shell: """
+#            samtools index "{input}"
+#            """
 
-if not skipBamQC:
-    rule markDupes:
-        input:
-            aligner+"/{sample}.bam",
-            aligner+"/{sample}.bam.bai"
-        output:
-            "Sambamba/{sample}.markdup.bam"
-        threads: lambda wildcards: 10 if 10<max_thread else max_thread
-        params:
-            tempDir = tempDir
-        conda: CONDA_SAMBAMBA_ENV
-        shell: """
-            TMPDIR={params.tempDir}
-            MYTEMP=$(mktemp -d "${{TMPDIR:-/tmp}}"/snakepipes.XXXXXXXXXX)
-            sambamba markdup --overflow-list-size 600000 -t {threads} --tmpdir "$MYTEMP/{wildcards.sample}" "{input[0]}" "{output}"
-            rm -rf "$MYTEMP"
-            """
+#if not skipBamQC:
+#    rule markDupes:
+#        input:
+#            aligner+"/{sample}.sorted.bam",
+#            aligner+"/{sample}.sorted.bam.bai"
+#        output:
+#            "Sambamba/{sample}.markdup.bam"
+#        threads: lambda wildcards: 10 if 10<max_thread else max_thread
+#        params:
+#            tempDir = tempDir
+#        conda: CONDA_SAMBAMBA_ENV
+#        shell: """
+#            TMPDIR={params.tempDir}
+#            MYTEMP=$(mktemp -d "${{TMPDIR:-/tmp}}"/snakepipes.XXXXXXXXXX)
+#            sambamba markdup --overflow-list-size 600000 -t {threads} --tmpdir "$MYTEMP/{wildcards.sample}" "{input[0]}" "{output}"
+#            rm -rf "$MYTEMP"
+#            """
 
 
-    rule indexMarkDupes:
-        input:
-            "Sambamba/{sample}.markdup.bam"
-        output:
-            "Sambamba/{sample}.markdup.bam.bai"
-        params:
-        threads: 1
-        conda: CONDA_SHARED_ENV
-        shell: """
-            samtools index "{input}"
-            """
+#    rule indexMarkDupes:
+#        input:
+#            "Sambamba/{sample}.markdup.bam"
+#        output:
+#            "Sambamba/{sample}.markdup.bam.bai"
+#        params:
+#        threads: 1
+#        conda: CONDA_SHARED_ENV
+#        shell: """
+#            samtools index "{input}"
+#            """
 
-    rule link_deduped_bam:
-        input:
-            bam="Sambamba/{sample}.markdup.bam",
-            bai="Sambamba/{sample}.markdup.bam.bai"
-        output:
-            bam = "filtered_bam/{sample}.filtered.bam",
-            bai = "filtered_bam/{sample}.filtered.bam.bai"
-        shell: """
-            ln -s ../{input.bam} {output.bam}
-            ln -s ../{input.bai} {output.bai}
-        """
+#    rule link_deduped_bam:
+#        input:
+#            bam="Sambamba/{sample}.markdup.bam",
+#            bai="Sambamba/{sample}.markdup.bam.bai"
+#        output:
+#            bam = "filtered_bam/{sample}.filtered.bam",
+#            bai = "filtered_bam/{sample}.filtered.bam.bai"
+#        shell: """
+#            ln -s ../{input.bam} {output.bam}
+#            ln -s ../{input.bai} {output.bai}
+#        """
 
 
 rule getRandomCpGs:
@@ -174,7 +174,7 @@ rule calc_Mbias:
     threads: lambda wildcards: 10 if 10<max_thread else max_thread
     conda: CONDA_WGBS_ENV
     shell: """
-        MethylDackel mbias -@ {threads} {params.genome} {input[0]} QC_metrics/{wildcards.sample}
+        MethylDackel mbias -@ {threads} {params.genome} {input[0]} QC_metrics/{wildcards.sample} 2> {output}
         """
 
 
@@ -189,7 +189,7 @@ rule calcCHHbias:
     threads: lambda wildcards: 10 if 10<max_thread else max_thread
     conda: CONDA_WGBS_ENV
     shell: """
-        MethylDackel mbias -@ {threads} --CHH --noCpG --noSVG {params.genome} {input[0]} QC_metrics/{wildcards.sample}
+        MethylDackel mbias -@ {threads} --CHH --noCpG --noSVG {params.genome} {input[0]} QC_metrics/{wildcards.sample} 2> {output}
         """
 
 

@@ -67,7 +67,7 @@ def multiqc_input_check(return_value):
     elif pipeline=="rnaseq":
         # must be RNA-mapping, add files as per the mode
         if ( "alignment" in mode or "deepTools_qc" in mode or "three-prime-seq" in mode ) and not "allelic-mapping" in mode and not "allelic-counting" in mode:
-            infiles.append( expand(aligner+"/{sample}.bam", sample = samples) +
+            infiles.append( expand(aligner+"/{sample}.markdup.bam", sample = samples) +
                     expand("Sambamba/{sample}.markdup.txt", sample = samples) +
                     expand("deepTools_qc/estimateReadFiltering/{sample}_filtering_estimation.txt",sample=samples)+
                     expand("featureCounts/{sample}.counts.txt", sample = samples))
@@ -78,8 +78,8 @@ def multiqc_input_check(return_value):
             infiles.append( expand("featureCounts/{sample}.allelic_counts.txt", sample = samples) )
             indir += aligner + " featureCounts "
         if "allelic-mapping" in mode:
-            infiles.append( expand("allelic_bams/{sample}.SNPsplit_report.yaml", sample = samples) )
-            infiles.append( expand("allelic_bams/{sample}.SNPsplit_sort.yaml", sample = samples) )
+            infiles.append( expand("allelic_bams/{sample}.markdup.SNPsplit_report.yaml", sample = samples) )
+            infiles.append( expand("allelic_bams/{sample}.markdup.SNPsplit_sort.yaml", sample = samples) )
             indir += "allelic_bams"
         if "alignment-free" in mode:
             if "allelic-mapping" in mode:
@@ -106,7 +106,7 @@ def multiqc_input_check(return_value):
             infiles.append( expand(fastq_dir+"/{sample}"+reads[0]+".fastq.gz", sample = samples) +
                             expand("Counts/{sample}.summary", sample = samples) )
             indir += fastq_dir + " Counts "
-            infiles.append( expand(aligner+"/{sample}.bam", sample = samples) +
+            infiles.append( expand(aligner+"/{sample}.markdup.bam", sample = samples) +
             expand("Sambamba/{sample}.markdup.txt", sample = samples) +
             expand("deepTools_qc/estimateReadFiltering/{sample}_filtering_estimation.txt", sample=samples))
             indir += aligner
@@ -114,7 +114,7 @@ def multiqc_input_check(return_value):
             indir += " deepTools_qc "
         elif mode == "STARsolo":
             infiles.append( expand(fastq_dir+"/{sample}"+reads[0]+".fastq.gz", sample = samples) )
-            infiles.append( expand(aligner+"/{sample}.bam", sample = samples) +
+            infiles.append( expand(aligner+"/{sample}.markdup.bam", sample = samples) +
             expand("Sambamba/{sample}.markdup.txt", sample = samples) +
             expand("deepTools_qc/estimateReadFiltering/{sample}_filtering_estimation.txt", sample=samples))
             indir += aligner
