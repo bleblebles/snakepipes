@@ -67,6 +67,7 @@ def createTestData(fp, samples=9) -> None:
 
     (fp / 'allelic_input'/ 'Ngenome').mkdir(parents=True)
     (fp / 'allelic_input'/ 'file.vcf.gz').touch()
+    (fp / 'allelic_input'/ 'file.vcf.gz.tbi').touch()
     (fp / 'allelic_input'/ 'snpfile.txt').touch()
 
     # samples
@@ -1875,7 +1876,7 @@ class TestscRNAseq():
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 178
+        assert parseSpOut(_p) == 177
     def test_skipvelo(self, ifs):
         ci = [
             "scRNAseq",
@@ -1947,7 +1948,7 @@ class TestWGBS():
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 154
+        assert parseSpOut(_p) == 145
     def test_no_sampleSheet(self, ifs):
         ci = [
             "WGBS",
@@ -1962,7 +1963,7 @@ class TestWGBS():
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 150
+        assert parseSpOut(_p) == 141
     def test_bwameth2(self, ifs):
         ci = [
             "WGBS",
@@ -1981,7 +1982,7 @@ class TestWGBS():
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 154
+        assert parseSpOut(_p) == 145
     def test_trimgcbias(self, ifs):
         ci = [
             "WGBS",
@@ -2000,7 +2001,7 @@ class TestWGBS():
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 155
+        assert parseSpOut(_p) == 146
     def test_frombam(self, ifs):
         ci = [
             "WGBS",
@@ -2019,7 +2020,7 @@ class TestWGBS():
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 92
+        assert parseSpOut(_p) == 83
     def test_frombamfqc(self, ifs):
         ci = [
             "WGBS",
@@ -2039,7 +2040,7 @@ class TestWGBS():
         print(' '.join([str(i) for i in ci]))
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
-        assert parseSpOut(_p) == 92
+        assert parseSpOut(_p) == 83
     def test_frombamskipqc(self, ifs):
         ci = [
             "WGBS",
