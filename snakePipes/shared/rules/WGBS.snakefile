@@ -5,11 +5,21 @@ import tempfile
 
 ###bam symlinking is taken care of by LinkBam
 
+rule download_picard:
+    output:
+        "resources/picard.jar"
+    shell:
+        """
+        wget -O {output} https://github.com/broadinstitute/picard/releases/download/3.3.0/picard.jar
+        """
+
+
 rule conversionRate:
     input:
         bam = "filtered_bam/{sample}.filtered.bam",
         bai = "filtered_bam/{sample}.filtered.bam.bai",
-        ref = genome_fasta
+        ref = genome_fasta,
+        picard = "resources/picard.jar"
     output:
         "QC_metrics/{sample}.rrbs_summary_metrics"
     params:
@@ -17,10 +27,10 @@ rule conversionRate:
     conda: CONDA_PICARD_ENV
     threads: 1
     shell: """
-        java -jar picard.jar CollectRrbsMetrics \
-        R={input.ref} \
-        I={input.bam} \
-        M={params.prefix}
+        java -Xmx4g -jar {input.picard} CollectRrbsMetrics \
+        -R {input.ref} \
+        -I {input.bam} \
+        -M {params.prefix}
         """
 
 
