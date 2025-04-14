@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "snakePipes"
 description = 'Snakemake workflows and wrappers for NGS data processing from the MPI-IE'
 readme = "README.md"
-version = "3.1.0"
+version = "3.2.0"
 keywords = [
     "DNAmapping",
     "ChIPSeq",
@@ -35,7 +35,8 @@ dependencies = [
     "snakemake >= 8",
     "pandas",
     "thefuzz",
-    "pyyaml >= 5.1",
+#    "pyyaml >= 5.1",
+    "ruamel.yaml",
     "snakemake-executor-plugin-cluster-generic >= 1.0.9",
     "graphviz"
 ]
