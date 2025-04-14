@@ -202,89 +202,89 @@ if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 2238 ]; then exit 1 ; fi
 
 # ChIPseq
 WC=`ChIPseq -d BAM_input --snakemakeOptions " --dryrun --conda-prefix /tmp" .ci_stuff/organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 368 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 338 ]; then exit 1 ; fi
 WC=`ChIPseq -d BAM_input --snakemakeOptions " --dryrun --conda-prefix /tmp" --peakCaller Genrich .ci_stuff/organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 347 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 362 ]; then exit 1 ; fi
 WC=`ChIPseq -d BAM_input --sampleSheet .ci_stuff/test_sampleSheet.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" .ci_stuff/organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 568 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 538 ]; then exit 1 ; fi
 WC=`ChIPseq -d BAM_input --sampleSheet .ci_stuff/test_sampleSheet.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" .ci_stuff/organism.yaml .ci_stuff/ChIP.sample_broad_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 736 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 756 ]; then exit 1 ; fi
 WC=`ChIPseq -d BAM_input --sampleSheet .ci_stuff/test_sampleSheet.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --peakCaller Genrich .ci_stuff/organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 537 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 552 ]; then exit 1 ; fi
 WC=`ChIPseq -d BAM_input --sampleSheet .ci_stuff/test_sampleSheet.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --singleEnd .ci_stuff/organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 566 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 536 ]; then exit 1 ; fi
 WC=`ChIPseq -d BAM_input --sampleSheet .ci_stuff/test_sampleSheet.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --bigWigType log2ratio .ci_stuff/organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 506 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 476 ]; then exit 1 ; fi
 WC=`ChIPseq -d BAM_input --sampleSheet .ci_stuff/test_sampleSheet.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --peakCaller SEACR .ci_stuff/organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 823 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 687 ]; then exit 1 ; fi
 WC=`ChIPseq -d BAM_input --sampleSheet .ci_stuff/test_sampleSheet.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --peakCaller SEACR --useSpikeInForNorm .ci_stuff/spikein_organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1235 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1099 ]; then exit 1 ; fi
 #noInput
 WC=`ChIPseq -d BAM_input --sampleSheet .ci_stuff/test_sampleSheet.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" .ci_stuff/organism.yaml .ci_stuff/ChIP.sample_noControl_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 365 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 335 ]; then exit 1 ; fi
 WC=`ChIPseq -d BAM_input --sampleSheet .ci_stuff/test_sampleSheet.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --peakCaller Genrich .ci_stuff/organism.yaml .ci_stuff/ChIP.sample_noControl_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 307 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 322 ]; then exit 1 ; fi
 WC=`ChIPseq -d BAM_input --sampleSheet .ci_stuff/test_sampleSheet.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --peakCaller SEACR .ci_stuff/organism.yaml .ci_stuff/ChIP.sample_noControl_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 569 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 433 ]; then exit 1 ; fi
 WC=`ChIPseq -d BAM_input --sampleSheet .ci_stuff/test_sampleSheet.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --peakCaller SEACR --useSpikeInForNorm .ci_stuff/spikein_organism.yaml .ci_stuff/ChIP.sample_noControl_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 781 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 645 ]; then exit 1 ; fi
 # fromBAM
 WC=`ChIPseq -d outdir --sampleSheet .ci_stuff/test_sampleSheet.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --fromBAM BAM_input/filtered_bam/ .ci_stuff/organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1092 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1062 ]; then exit 1 ; fi
 # fromBam and noInput
 WC=`ChIPseq -d outdir --sampleSheet .ci_stuff/test_sampleSheet.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --fromBAM BAM_input/filtered_bam/ .ci_stuff/organism.yaml .ci_stuff/ChIP.sample_noControl_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 739 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 709 ]; then exit 1 ; fi
 # spikein
 WC=`ChIPseq -d BAM_input --useSpikeInForNorm --sampleSheet .ci_stuff/test_sampleSheet.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp"  .ci_stuff/spikein_organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1033 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1003 ]; then exit 1 ; fi
 # spikein and noInput
 WC=`ChIPseq -d BAM_input --useSpikeInForNorm --sampleSheet .ci_stuff/test_sampleSheet.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp"  .ci_stuff/spikein_organism.yaml .ci_stuff/ChIP.sample_noControl_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 633 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 603 ]; then exit 1 ; fi
 # fromBAM and spikein
 WC=`ChIPseq -d outdir --useSpikeInForNorm --sampleSheet .ci_stuff/test_sampleSheet.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --fromBAM BAM_input/filtered_bam/ .ci_stuff/spikein_organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1329 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1299 ]; then exit 1 ; fi
 WC=`ChIPseq -d outdir --useSpikeInForNorm --getSizeFactorsFrom TSS --sampleSheet .ci_stuff/test_sampleSheet.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --fromBAM BAM_input/filtered_bam/ .ci_stuff/spikein_organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1086 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1056 ]; then exit 1 ; fi
 WC=`ChIPseq -d outdir --useSpikeInForNorm --getSizeFactorsFrom input --sampleSheet .ci_stuff/test_sampleSheet.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --fromBAM BAM_input/filtered_bam/ .ci_stuff/spikein_organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1058 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1028 ]; then exit 1 ; fi
 # allelic
 WC=`ChIPseq -d allelic_BAM_input --sampleSheet .ci_stuff/test_sampleSheet.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp"  .ci_stuff/organism.yaml .ci_stuff/ChIP.sample_short_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 385 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 362 ]; then exit 1 ; fi
 #multiComp
 WC=`ChIPseq -d BAM_input --sampleSheet .ci_stuff/test_sampleSheet_multiComp.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" .ci_stuff/organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 757 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 727 ]; then exit 1 ; fi
 WC=`ChIPseq -d BAM_input --sampleSheet .ci_stuff/test_sampleSheet_multiComp.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --peakCaller Genrich .ci_stuff/organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 760 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 775 ]; then exit 1 ; fi
 WC=`ChIPseq -d BAM_input --sampleSheet .ci_stuff/test_sampleSheet_multiComp.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" .ci_stuff/organism.yaml .ci_stuff/ChIP.sample_broad_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 925 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 945 ]; then exit 1 ; fi
 #multiComp and fromBam
 WC=`ChIPseq -d outdir --sampleSheet .ci_stuff/test_sampleSheet_multiComp.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --fromBAM BAM_input/filtered_bam/ .ci_stuff/organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1281 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1251 ]; then exit 1 ; fi
 WC=`ChIPseq -d outdir --sampleSheet .ci_stuff/test_sampleSheet_multiComp.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --peakCaller Genrich --fromBAM BAM_input/filtered_bam/ .ci_stuff/organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1284 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1299 ]; then exit 1 ; fi
 #multiComp and spikein
 WC=`ChIPseq -d BAM_input --useSpikeInForNorm --sampleSheet .ci_stuff/test_sampleSheet_multiComp.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp"  .ci_stuff/spikein_organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1205 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1175 ]; then exit 1 ; fi
 WC=`ChIPseq -d BAM_input --useSpikeInForNorm --sampleSheet .ci_stuff/test_sampleSheet_multiComp.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --peakCaller Genrich .ci_stuff/spikein_organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1208 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1223 ]; then exit 1 ; fi
 #multiComp and spikein and noInput
 WC=`ChIPseq -d BAM_input --useSpikeInForNorm --sampleSheet .ci_stuff/test_sampleSheet_multiComp.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp"  .ci_stuff/spikein_organism.yaml .ci_stuff/ChIP.sample_noControl_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 771 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 741 ]; then exit 1 ; fi
 WC=`ChIPseq -d BAM_input --useSpikeInForNorm --sampleSheet .ci_stuff/test_sampleSheet_multiComp.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --peakCaller Genrich .ci_stuff/spikein_organism.yaml .ci_stuff/ChIP.sample_noControl_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 747 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 762 ]; then exit 1 ; fi
 #multiComp and spikein and fromBam
 WC=`ChIPseq -d outdir --useSpikeInForNorm --sampleSheet .ci_stuff/test_sampleSheet_multiComp.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --fromBAM BAM_input/filtered_bam/ .ci_stuff/spikein_organism.yaml .ci_stuff/ChIP.sample_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1501 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1471 ]; then exit 1 ; fi
 WC=`ChIPseq -d outdir --useSpikeInForNorm --sampleSheet .ci_stuff/test_sampleSheet_multiComp.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --peakCaller Genrich --fromBAM BAM_input/filtered_bam/ .ci_stuff/spikein_organism.yaml .ci_stuff/ChIP.sample_noControl_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 947 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 962 ]; then exit 1 ; fi
 #multiComp and spikein and fromBam and noInput
 WC=`ChIPseq -d outdir --useSpikeInForNorm --sampleSheet .ci_stuff/test_sampleSheet_multiComp.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --fromBAM BAM_input/filtered_bam/ .ci_stuff/spikein_organism.yaml .ci_stuff/ChIP.sample_noControl_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 971 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 941 ]; then exit 1 ; fi
 WC=`ChIPseq -d outdir --useSpikeInForNorm --sampleSheet .ci_stuff/test_sampleSheet_multiComp.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --peakCaller Genrich --fromBAM BAM_input/filtered_bam/ .ci_stuff/spikein_organism.yaml .ci_stuff/ChIP.sample_noControl_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 947 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 962 ]; then exit 1 ; fi
 #multiComp and noInput and fromBam
 WC=`ChIPseq -d outdir --sampleSheet .ci_stuff/test_sampleSheet_multiComp.tsv --snakemakeOptions " --dryrun --conda-prefix /tmp" --peakCaller SEACR --fromBAM BAM_input/filtered_bam/ .ci_stuff/spikein_organism.yaml .ci_stuff/ChIP.sample_noControl_config.yaml | tee >(cat 1>&2) | grep -v -f .ci_stuff/test_ignore_patterns.txt | sed '/^\s*$/d' | sed '/^host:/d' | wc -l `
-if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 1081 ]; then exit 1 ; fi
+if [ ${PIPESTATUS[0]} -ne 0 ] || [ $WC -ne 945 ]; then exit 1 ; fi
 
 
 # mRNAseq

@@ -46,7 +46,8 @@ def set_env_yamls():
             'CONDA_SEACR_ENV': 'envs/chip_seacr.yaml',
             'CONDA_FQLINT_ENV': 'envs/fqlint.yaml',
             'CONDA_WHATSHAP_ENV': 'envs/whatshap.yaml',
-            'CONDA_PICARD_ENV': 'envs/picard.yaml'
+            'CONDA_PICARD_ENV': 'envs/picard.yaml',
+            'CONDA_CHIPQC_ENV': 'envs/chipqc.yaml'
             }
 
 
@@ -783,6 +784,8 @@ def runAndCleanup(args, cmd, logfile_name):
     for _l in p.stdout:
         sys.stdout.write(_l.strip() + '\n')
         f.write(_l.strip() + '\n')
+        sys.stdout.flush()
+        f.flush()
     p.wait()
 
     # Exit with an error if snakemake encountered an error
