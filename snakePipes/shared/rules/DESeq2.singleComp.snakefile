@@ -25,7 +25,8 @@ rule DESeq2:
         rmdTemplate = os.path.join(maindir, "shared", "rscripts", "DESeq2Report.Rmd"),
         formula = config["formula"],
         counts_table = lambda wildcards,input: os.path.join(outdir,input.counts_table),
-        symbol_file = lambda wildcards,input: os.path.join(outdir,input.symbol_file)
+        symbol_file = lambda wildcards,input: os.path.join(outdir,input.symbol_file),
+        lrt = LRT
     conda: CONDA_RNASEQ_ENV
     script: "{params.script}"
 
@@ -51,7 +52,8 @@ rule DESeq2_Salmon_basic:
         rmdTemplate = os.path.join(maindir, "shared", "rscripts", "DESeq2Report.Rmd"),
         formula = config["formula"],
         counts_table = lambda wildcards,input: os.path.join(outdir,input.counts_table),
-        symbol_file = lambda wildcards,input: os.path.join(outdir,input.symbol_file)
+        symbol_file = lambda wildcards,input: os.path.join(outdir,input.symbol_file),
+        lrt = LRT
     conda: CONDA_RNASEQ_ENV
     script: "{params.script}"
 
@@ -77,6 +79,7 @@ rule DESeq2_Salmon_allelic:
         rmdTemplate = os.path.join(maindir, "shared", "rscripts", "DESeq2Report.Rmd"),
         formula = config["formula"],
         counts_table = lambda wildcards,input: os.path.join(outdir,input.counts_table),
-        symbol_file = lambda wildcards,input: os.path.join(outdir,input.symbol_file)
+        symbol_file = lambda wildcards,input: os.path.join(outdir,input.symbol_file),
+        lrt = LRT
     conda: CONDA_RNASEQ_ENV
     script: "{params.script}"
