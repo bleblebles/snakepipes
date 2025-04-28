@@ -1,5 +1,6 @@
 import os
 import snakePipes.common_functions as cf
+import warnings
 
 
 ### snakemake_workflows initialization ########################################
@@ -228,6 +229,7 @@ def run_alignment():
         "QC_report/QC_report_all.tsv"
         ]
         if sampleSheet:
+            warnings.warn("LRT value is set to " + str(LRT))
             sample_name = os.path.splitext(os.path.basename(sampleSheet))[0]
             if not isMultipleComparison:
                 if not LRT:
