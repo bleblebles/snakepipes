@@ -58,7 +58,8 @@ rule DESeq2_Salmon_basic:
         "{}/.benchmark/DESeq2.Salmon.benchmark".format(get_outdir("DESeq2_Salmon",os.path.splitext(os.path.basename(str(sampleSheet)))[0]+".{compGroup}.tsv",LRT))
     params:
         script=os.path.join(maindir, "shared", "rscripts", "DESeq2.R"),
-        outdir = lambda wildcards,input: get_outdir("DESeq2_Salmon",input.sampleSheet,LRT),
+#        outdir = lambda wildcards,input: get_outdir("DESeq2_Salmon",input.sampleSheet,LRT),
+        outdir = lambda wildcards: get_outdir("DESeq2_Salmon", str(checkpoints.split_sampleSheet.get(compGroup=wildcards.compGroup).output), LRT),
         sampleSheet = lambda wildcards,input: os.path.join(outdir,str(input.sampleSheet)),
         fdr = fdr,
         importfunc = os.path.join(maindir, "shared", "rscripts", "DE_functions.R"),
