@@ -1215,6 +1215,24 @@ class TestmRNAseq:
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
         assert parseSpOut(_p) == 177
+    def test_DE_LRT(self, ifs):
+        ci = [
+            "mRNAseq",
+            '-i',
+            ifs / 'PE',
+            '-o',
+            ifs / 'outdir',
+            '--sampleSheet',
+            ifs / 'sampleSheet.tsv',
+            '--snakemakeOptions',
+            SMKOPTS,
+            '--LRT',
+            ifs / 'org.yaml'
+        ]
+        print(' '.join([str(i) for i in ci]))
+        _p = sp.run(ci, capture_output=True, text=True)
+        assert _p.returncode == 0
+        assert parseSpOut(_p) == 177
     def test_rMats(self, ifs):
         ci = [
             "mRNAseq",
