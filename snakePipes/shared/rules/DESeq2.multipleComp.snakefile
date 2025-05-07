@@ -1,5 +1,5 @@
 ## function to get the name of the samplesheet and extend the name of the folder DESeq2 to DESeq2_[name]
-def get_outdir(folder_name,sampleSheet,lrt=False):
+def get_outdir(folder_name,sampleSheet,lrt):
     sample_name = os.path.splitext(os.path.basename(str(sampleSheet)))[0]
     output_folder_name = "{}_{}".format(folder_name, sample_name)
     if lrt:
@@ -26,12 +26,12 @@ rule DESeq2:
         sampleSheet = lambda wildcards: checkpoints.split_sampleSheet.get(compGroup=wildcards.compGroup).output,
         symbol_file = "Annotation/genes.filtered.symbol" #get_symbol_file
     output:
-         "{}/DESeq2.session_info.txt".format(get_outdir("DESeq2",os.path.splitext(os.path.basename(str(sampleSheet)))[0]+".{compGroup}.tsv",lrt=LRT))
+         "{}/DESeq2.session_info.txt".format(get_outdir("DESeq2",os.path.splitext(os.path.basename(str(sampleSheet)))[0]+".{compGroup}.tsv",LRT))
     benchmark:
-        "{}/.benchmark/DESeq2.featureCounts.benchmark".format(get_outdir("DESeq2",os.path.splitext(os.path.basename(str(sampleSheet)))[0]+".{compGroup}.tsv",lrt=LRT))
+        "{}/.benchmark/DESeq2.featureCounts.benchmark".format(get_outdir("DESeq2",os.path.splitext(os.path.basename(str(sampleSheet)))[0]+".{compGroup}.tsv",LRT))
     params:
         script=os.path.join(maindir, "shared", "rscripts", "DESeq2.R"),
-        outdir = lambda wildcards,input: get_outdir("DESeq2",input.sampleSheet,lrt=LRT),
+        outdir = lambda wildcards,input: get_outdir("DESeq2",input.sampleSheet,LRT),
         sampleSheet = lambda wildcards,input: os.path.join(outdir,str(input.sampleSheet)),
         fdr = fdr,
         importfunc = os.path.join(maindir, "shared", "rscripts", "DE_functions.R"),
@@ -53,12 +53,12 @@ rule DESeq2_Salmon_basic:
         tx2gene_file = "Annotation/genes.filtered.t2g",
         symbol_file = "Annotation/genes.filtered.symbol" #get_symbol_file
     output:
-        "{}/DESeq2.session_info.txt".format(get_outdir("DESeq2_Salmon",os.path.splitext(os.path.basename(str(sampleSheet)))[0]+".{compGroup}.tsv",lrt=LRT))
+        "{}/DESeq2.session_info.txt".format(get_outdir("DESeq2_Salmon",os.path.splitext(os.path.basename(str(sampleSheet)))[0]+".{compGroup}.tsv",LRT))
     benchmark:
-        "{}/.benchmark/DESeq2.Salmon.benchmark".format(get_outdir("DESeq2_Salmon",os.path.splitext(os.path.basename(str(sampleSheet)))[0]+".{compGroup}.tsv",lrt=LRT))
+        "{}/.benchmark/DESeq2.Salmon.benchmark".format(get_outdir("DESeq2_Salmon",os.path.splitext(os.path.basename(str(sampleSheet)))[0]+".{compGroup}.tsv",LRT))
     params:
         script=os.path.join(maindir, "shared", "rscripts", "DESeq2.R"),
-        outdir = lambda wildcards,input: get_outdir("DESeq2_Salmon",input.sampleSheet,lrt=LRT),
+        outdir = lambda wildcards,input: get_outdir("DESeq2_Salmon",input.sampleSheet,LRT),
         sampleSheet = lambda wildcards,input: os.path.join(outdir,str(input.sampleSheet)),
         fdr = fdr,
         importfunc = os.path.join(maindir, "shared", "rscripts", "DE_functions.R"),
