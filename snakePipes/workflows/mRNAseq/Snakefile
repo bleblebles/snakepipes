@@ -233,8 +233,10 @@ def run_alignment():
             sample_name = os.path.splitext(os.path.basename(sampleSheet))[0]
             if not isMultipleComparison:
                 if LRT:
+                    warnings.warn("LRT value is set to " + str(LRT) + "/n Appending " + "DESeq2_{}_LRT/DESeq2.session_info.txt to file list".format(sample_name))
                     file_list.append( ["DESeq2_{}_LRT/DESeq2.session_info.txt".format(sample_name)] )
                 else:
+                    warnings.warn("LRT value is set to " + str(LRT) + "/n Appending " + "DESeq2_{}/DESeq2.session_info.txt to file list".format(sample_name))
                     file_list.append( ["DESeq2_{}/DESeq2.session_info.txt".format(sample_name)] )
                 if rMats:
                     file_list.append( ["rMats_{}/RI.MATS.JCEC.txt".format(sample_name)] )
