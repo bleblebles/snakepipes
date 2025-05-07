@@ -1,5 +1,5 @@
 ## function to get the name of the samplesheet and extend the name of the folder DESeq2 to DESeq2_[name]
-def get_outdir(folder_name,sampleSheet,lrt=False):
+def get_outdir(folder_name,sampleSheet,lrt):
     sample_name = os.path.splitext(os.path.basename(str(sampleSheet)))[0]
     output_folder_name = "{}_{}".format(folder_name, sample_name)
     if lrt:
@@ -13,13 +13,13 @@ rule DESeq2:
         sampleSheet = sampleSheet,
         symbol_file = "Annotation/genes.filtered.symbol" #get_symbol_file
     output:
-        "{}/DESeq2.session_info.txt".format(get_outdir("DESeq2",sampleSheet,lrt=LRT)) 
+        "{}/DESeq2.session_info.txt".format(get_outdir("DESeq2",sampleSheet,LRT)) 
     benchmark:
-        "{}/.benchmark/DESeq2.featureCounts.benchmark".format(get_outdir("DESeq2",sampleSheet,lrt=LRT))
+        "{}/.benchmark/DESeq2.featureCounts.benchmark".format(get_outdir("DESeq2",sampleSheet,LRT))
     params:
         script = os.path.join(maindir, "shared", "rscripts", "DESeq2.R"),
         sampleSheet = lambda wildcards,input: input.sampleSheet,
-        outdir = get_outdir("DESeq2",sampleSheet,lrt=LRT),
+        outdir = get_outdir("DESeq2",sampleSheet,LRT),
         fdr = fdr,
         importfunc = os.path.join(maindir, "shared", "rscripts", "DE_functions.R"),
         allele_info = lambda wildcards : 'TRUE' if 'allelic-mapping' in mode or 'allelic-counting' in mode or 'allelic-whatshap' in mode else 'FALSE',
@@ -40,13 +40,13 @@ rule DESeq2_Salmon_basic:
         tx2gene_file = "Annotation/genes.filtered.t2g",
         symbol_file = "Annotation/genes.filtered.symbol" #get_symbol_file
     output:
-        "{}/DESeq2.session_info.txt".format(get_outdir("DESeq2_Salmon",sampleSheet,lrt=LRT))
+        "{}/DESeq2.session_info.txt".format(get_outdir("DESeq2_Salmon",sampleSheet,LRT))
     benchmark:
-        "{}/.benchmark/DESeq2.Salmon.benchmark".format(get_outdir("DESeq2_Salmon",sampleSheet,lrt=LRT))
+        "{}/.benchmark/DESeq2.Salmon.benchmark".format(get_outdir("DESeq2_Salmon",sampleSheet,LRT))
     params:
         script=os.path.join(maindir, "shared", "rscripts", "DESeq2.R"),
         sampleSheet = lambda wildcards,input: input.sampleSheet,
-        outdir = get_outdir("DESeq2_Salmon",sampleSheet,lrt=LRT),
+        outdir = get_outdir("DESeq2_Salmon",sampleSheet,LRT),
         fdr = fdr,
         importfunc = os.path.join(maindir, "shared", "rscripts", "DE_functions.R"),
         allele_info = 'FALSE',
@@ -67,13 +67,13 @@ rule DESeq2_Salmon_allelic:
         tx2gene_file = "Annotation/genes.filtered.t2g",
         symbol_file = "Annotation/genes.filtered.symbol" #get_symbol_file
     output:
-        "{}/DESeq2.session_info.txt".format(get_outdir("DESeq2_SalmonAllelic",sampleSheet,lrt=LRT))
+        "{}/DESeq2.session_info.txt".format(get_outdir("DESeq2_SalmonAllelic",sampleSheet,LRT))
     benchmark:
-        "{}/.benchmark/DESeq2.SalmonAllelic.benchmark".format(get_outdir("DESeq2_SalmonAllelic",sampleSheet,lrt=LRT))
+        "{}/.benchmark/DESeq2.SalmonAllelic.benchmark".format(get_outdir("DESeq2_SalmonAllelic",sampleSheet,LRT))
     params:
         script=os.path.join(maindir, "shared", "rscripts", "DESeq2.R"),
         sampleSheet = lambda wildcards,input: input.sampleSheet,
-        outdir = get_outdir("DESeq2_SalmonAllelic",sampleSheet,lrt=LRT),
+        outdir = get_outdir("DESeq2_SalmonAllelic",sampleSheet,LRT),
         fdr = fdr,
         importfunc = os.path.join(maindir, "shared", "rscripts", "DE_functions.R"),
         allele_info = 'TRUE',
