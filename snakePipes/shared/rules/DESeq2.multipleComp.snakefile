@@ -31,7 +31,7 @@ rule DESeq2:
         "{}/.benchmark/DESeq2.featureCounts.benchmark".format(get_outdir("DESeq2",os.path.splitext(os.path.basename(str(sampleSheet)))[0]+".{compGroup}.tsv",LRT))
     params:
         script=os.path.join(maindir, "shared", "rscripts", "DESeq2.R"),
-        outdir = lambda wildcards,output: os.path.dirname(output),
+        outdir = lambda wildcards,output: os.path.dirname(output[0]),
         sampleSheet = lambda wildcards,input: os.path.join(outdir,str(input.sampleSheet)),
         fdr = fdr,
         importfunc = os.path.join(maindir, "shared", "rscripts", "DE_functions.R"),
