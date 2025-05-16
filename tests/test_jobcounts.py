@@ -2354,6 +2354,25 @@ class TestHIC():
         _p = sp.run(ci, capture_output=True, text=True)
         assert _p.returncode == 0
         assert parseSpOut(_p) == 102
+    def test_two_enzymes(self, ifs):
+        ci = [
+            "HiC",
+            '-i',
+            ifs / 'PE',
+            '-o',
+            ifs / 'output',
+            '--snakemakeOptions',
+            SMKOPTS,
+            '--enzyme',
+            'MseI',
+            '--enzyme',
+            'CviQI',
+            ifs / 'org.yaml'
+        ]
+        print(' '.join([str(i) for i in ci]))
+        _p = sp.run(ci, capture_output=True, text=True)
+        assert _p.returncode == 0
+        assert parseSpOut(_p) == 102
 
     def test_notad(self, ifs):
         ci = [
