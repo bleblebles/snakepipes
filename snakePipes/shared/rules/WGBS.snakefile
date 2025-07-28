@@ -26,8 +26,10 @@ rule conversionRate:
         prefix = "QC_metrics/{sample}"
     conda: CONDA_PICARD_ENV
     threads: 1
+    resources:
+        mem=50000,
     shell: """
-        java -Xmx4g -jar {input.picard} CollectRrbsMetrics \
+        java -Xmx50g -jar {input.picard} CollectRrbsMetrics \
         -R {input.ref} \
         -I {input.bam} \
         -M {params.prefix}
