@@ -227,7 +227,7 @@ rule chipqc:
     output:
         "{}_chipqc/sessionInfo.txt".format(peakCaller)
     params:
-        genome = genome,
+        genome = os.path.basename(genome),
         outdir = "{}_chipqc".format(peakCaller),
         blacklist = blacklist_bed,
         bams = lambda wildcards,input: [os.path.join(outdir,x) for x in input.bams],

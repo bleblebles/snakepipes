@@ -107,13 +107,16 @@ if( genome %in% supported_annotations){
  
     annotation<-supported_annotations[grep(genome,extended_annotations)]
     
-}else {stop("No matching annotation was found.")}
+}else {
+        #stop("No matching annotation was found.")
+        annotation<-NULL
+        }
 
 if(file.exists(blacklist)){
     blist<-blacklist}else{blist<-NULL}
 
 message(paste0("Using blacklist: ",blist))
-QC<-ChIPQC(sampledat,annotation=annotation,mapQCth=3,blacklist=blist)
+QC<-ChIPQC(sampledat,annotation=annotation,mapQCth=3,blacklist=blist,chromosomes=NULL,annotation=annotation)
 ChIPQCreport(QC,reportFolder=".",facet=FALSE,colourBy="Factor")
 
 sink("sessionInfo.txt")
