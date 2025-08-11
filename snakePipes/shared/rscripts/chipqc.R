@@ -116,7 +116,7 @@ if(file.exists(blacklist)){
     blist<-blacklist}else{blist<-NULL}
 
 message(paste0("Using blacklist: ",blist))
-QC<-ChIPQC(sampledat,annotation=annotation,mapQCth=3,blacklist=blist,chromosomes=NULL,annotation=annotation)
+QC<-ChIPQC(sampledat,annotation=annotation,mapQCth=3,blacklist=blist,chromosomes=NULL)
 ChIPQCreport(QC,reportFolder=".",facet=FALSE,colourBy="Factor")
 
 sink("sessionInfo.txt")
