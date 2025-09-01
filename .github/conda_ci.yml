@@ -4,3 +4,5 @@ dependencies:
   - anaconda-client
   - conda-build
   - conda-verify
+  - pip:
+    - pulp
