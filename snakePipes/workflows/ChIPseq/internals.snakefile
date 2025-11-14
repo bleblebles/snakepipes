@@ -78,7 +78,6 @@ allele_info=is_allelic(workingdir)
 # TODO: catch exception if ChIPseq samples are not unique
 # read ChIPseq dictionary from config.yaml:
 # { ChIP1: { control: Input1, broad: True }, ChIP2: { control: Input2, broad: false }
-#config["chip_dict"] = {}
 
 if not os.path.isfile(samples_config):
     print("ERROR: Cannot find samples file ("+samples_config+")")
@@ -136,6 +135,9 @@ narrow_samples = list(sorted(narrow_samples))
 narrow_samples = list(filter(None, narrow_samples))
 warnings.warn("narrow samples " + ' '.join(narrow_samples))
 
+if peakCaller=="histoneHMM" and not broad_samples:
+    print("HistoneHMM selected as peakCaller but no broad samples were found.")
+    exit(1)
 
 control_samples = list(sorted(control_samples))
 # get a list of corresp control_names for chip samples
