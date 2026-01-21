@@ -114,13 +114,14 @@ rule TEcounts:
     output:
         "TEcount/{sample}.cntTable"
     params:
+        libtype = libraryType,
         gtf = genes_gtf
     benchmark:
         "TEcount/.benchmark/{sample}.benchmark"
     threads: 1
     conda: CONDA_NONCODING_RNASEQ_ENV
     shell: """
-        TEcount --format BAM --mode multi -b {input.bam} --GTF {params.gtf} --TE {input.repeatGTF} --project TEcount/{wildcards.sample}
+        TEcount --format BAM --mode multi --stranded {params.libtype} -b {input.bam} --GTF {params.gtf} --TE {input.repeatGTF} --project TEcount/{wildcards.sample}
         """
 
 
