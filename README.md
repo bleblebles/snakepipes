@@ -1,3 +1,9 @@
+# Changes made
+
+snakePipes was customized to be able to:
+* Being able to also use a [rmsk.gtf (As provided by TEtranscipts)](https://www.mghlab.org/software/tetranscripts) file in createIndices insead of doing the conversion of txt to gtf
+* Being able to add libaryrType to ncRNAseq and give that to TEcount ('no', 'forward' and 'reverse')
+
 [![linux](https://github.com/maxplanck-ie/snakepipes/actions/workflows/linux.yml/badge.svg)](https://github.com/maxplanck-ie/snakepipes/actions/workflows/linux.yml)
 [![osx](https://github.com/maxplanck-ie/snakepipes/actions/workflows/osx.yml/badge.svg)](https://github.com/maxplanck-ie/snakepipes/actions/workflows/osx.yml)
 [![pytest](https://github.com/maxplanck-ie/snakepipes/actions/workflows/pytest.yml/badge.svg)](https://github.com/maxplanck-ie/snakepipes/actions/workflows/pytest.yml)
