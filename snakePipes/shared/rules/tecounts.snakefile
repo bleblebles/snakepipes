@@ -64,33 +64,46 @@ rule makeRMSKGTF:
     input: rmsk_file
     output: temp("rmsk.gtf")
     run:
-        f = open(input[0])
-        of = open(output[0], "w")
-        found = dict()
-
-        for line in f:
-            if line.startswith("#"):
-                continue
-            bin, swScore, milliDiv, milliDel, milliIns,  genoName, genoStart, genoEnd, genoLeft, strand, repName, repClass, repFamily, repStart, repEnd, repLeft, id = line.strip().split("\t")
-            if repName not in found:
-                found[repName] = 0
-                tid = repName
-            else:
-                found[repName] += 1
-                tid = "{}_dup{}".format(repName, found[repName])
-
-            meta = {"genoName": genoName,
-                    "genoStart": genoStart,
-                    "genoEnd": genoEnd,
-                    "strand": strand,
-                    "repName": repName,
-                    "repClass": repClass,
-                    "repFamily": repFamily,
-                    "tid": tid}
-
-            of.write("{genoName}\trmsk\texon\t{genoStart}\t{genoEnd}\t.\t{strand}\t.\tgene_id \"{repName}\"; transcript_id \"{tid}\"; family_id \"{repFamily}\"; class_id \"{repClass}\";\n".format(**meta))
-        f.close()
-        of.close()
+        #Added this to check whether the file is already a gtf and not a txt
+        import io, gzip, shutil
+        def simple_gtf_check(path):
+            with open(path, "rt") as fh:
+                for line in fh:
+                    if not line.strip() or line.startswith("#"):
+                        continue
+                    parts = line.rstrip("\n").split("\t")
+                    return len(parts) >= 3 and parts[2] == "exon"
+            return False
+        if simple_gtf_check(input[0]):
+            shutil.copyfile(input[0], output[0])#If its in the gtf format just copy it :)
+        else:
+            f = open(input[0])
+            of = open(output[0], "w")
+            found = dict()
+    
+            for line in f:
+                if line.startswith("#"):
+                    continue
+                bin, swScore, milliDiv, milliDel, milliIns,  genoName, genoStart, genoEnd, genoLeft, strand, repName, repClass, repFamily, repStart, repEnd, repLeft, id = line.strip().split("\t")
+                if repName not in found:
+                    found[repName] = 0
+                    tid = repName
+                else:
+                    found[repName] += 1
+                    tid = "{}_dup{}".format(repName, found[repName])
+    
+                meta = {"genoName": genoName,
+                        "genoStart": genoStart,
+                        "genoEnd": genoEnd,
+                        "strand": strand,
+                        "repName": repName,
+                        "repClass": repClass,
+                        "repFamily": repFamily,
+                        "tid": tid}
+    
+                of.write("{genoName}\trmsk\texon\t{genoStart}\t{genoEnd}\t.\t{strand}\t.\tgene_id \"{repName}\"; transcript_id \"{tid}\"; family_id \"{repFamily}\"; class_id \"{repClass}\";\n".format(**meta))
+            f.close()
+            of.close()
 
 
 # Run TE Counts single core, 30GB
