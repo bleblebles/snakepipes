@@ -40,7 +40,7 @@ sampleSheet:
 bwBinSize: 25
 fastqc: False
 fragmentLength: 200
-libraryType: 2
+libraryType: no
 ## supported mappers: STAR
 aligner: STAR
 alignerOptions: "--outSAMstrandField intronMotif --outFilterMultimapNmax 1000 --outFilterMismatchNoverLmax 0.1 --outSAMattributes Standard"
