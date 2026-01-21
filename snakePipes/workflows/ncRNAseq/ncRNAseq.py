@@ -83,6 +83,8 @@ def parse_args(defaults={"verbose": False, "configFile": None,
                           dest="pairedEnd",
                           action="store_false",
                           help="input data is single-end, not paired-end. This is only used if --fromBAM is specified.")
+    
+    optional.add_argument("--libraryType",help="Enter 'no', 'forward' (QIAseq) or 'reverse' (Illumina)")
 
     return parser
 
