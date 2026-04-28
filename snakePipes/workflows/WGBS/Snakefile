@@ -109,7 +109,9 @@ def run_deeptools(GCbias):
     if skipBamQC:
         GCbias = False
     if GCbias:
-        return ["QC_metrics/GCbias.freq.txt","QC_metrics/GCbias.png"]
+        return (expand("QC_metrics/{sample}.GCbias.freq.txt", sample=samples) +
+                expand("QC_metrics/{sample}.GCbias." + plotFormat, sample=samples))
+        #return ["QC_metrics/GCbias.freq.txt","QC_metrics/GCbias.png"]
     else:
         return ([])
 
