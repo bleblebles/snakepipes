@@ -157,23 +157,27 @@ rule calcCHHbias:
         MethylDackel mbias -@ {threads} --CHH --noCpG --noSVG {params.genome} {input[0]} QC_metrics/{wildcards.sample} 2> {output}
         """
 
-
 rule calc_GCbias:
     input:
-        BAMS=expand("filtered_bam/{sample}.filtered.bam", sample=samples),
-        BAIS=expand("filtered_bam/{sample}.filtered.bam.bai", sample=samples),
+        BAM = "filtered_bam/{sample}.filtered.bam",
+        BAI = "filtered_bam/{sample}.filtered.bam.bai",
     output:
-        "QC_metrics/GCbias.freq.txt",
-        "QC_metrics/GCbias." + plotFormat
+        freq = "QC_metrics/{sample}.GCbias.freq.txt",
+        plot = "QC_metrics/{sample}.GCbias." + plotFormat
     params:
-        genomeSize=genome_size,
-        twobitpath=genome_2bit
-    threads: lambda wildcards: 20 if 20<max_thread else max_thread
+        genomeSize = genome_size,
+        twobitpath = genome_2bit
+    threads: lambda wildcards: 20 if 20 < max_thread else max_thread
     conda: CONDA_SHARED_ENV
     shell: """
-        computeGCBias -b {input.BAMS} --effectiveGenomeSize {params.genomeSize} -g {params.twobitpath} -l 300 --GCbiasFrequenciesFile {output[0]} -p {threads} --biasPlot {output[1]}
+        computeGCBias -b {input.BAM} \
+            --effectiveGenomeSize {params.genomeSize} \
+            -g {params.twobitpath} \
+            -l 300 \
+            --GCbiasFrequenciesFile {output.freq} \
+            -p {threads} \
+            --biasPlot {output.plot}
         """
-
 
 rule DepthOfCov:
     input:
