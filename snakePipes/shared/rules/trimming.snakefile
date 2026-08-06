@@ -106,6 +106,9 @@ else:
         params:
             tmp = "FASTQ_TrimGalore/{sample}" + reads[0] + "_trimmed.fq.gz",
             opts = lambda wildcards: str(trimmerOptions or '')
+        log:
+            out = "FASTQ_TrimGalore/TrimGalore_log.{sample}.out",
+            err = "FASTQ_TrimGalore/TrimGalore_log.{sample}.err"
         benchmark:
             "FASTQ_TrimGalore/.benchmark/TrimGalore.{sample}.benchmark"
         conda: CONDA_SHARED_ENV
